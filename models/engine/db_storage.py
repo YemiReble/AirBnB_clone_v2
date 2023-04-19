@@ -2,9 +2,16 @@
 """DBStorage Module"""
 import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
-from base_model import Base
+from models.base_model import Base
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 usr = getenv('HBNB_MYSQL_USER')
 pwd = getenv('HBNB_MYSQL_PWD')
@@ -36,11 +43,11 @@ class DBStorage:
                         for obj in objs}
         else:
             objs_dict = {}
-            for cls in [User, State, City, Amenity, Place, Review]:
+            for cls in [State, City]:
                 objs = self.__session.query(cls).all()
-                objs_dict.update(
+                objs_dict.update({
                         f'{obj.__class__.__name__}.{obj.id}': obj
-                        for obj in objs}
+                        for obj in objs})
         return objs_dict
 
     def new(self, obj):
@@ -58,13 +65,7 @@ class DBStorage:
 
     def reload(self):
         """Reloads all objects from database"""
-        # import User
-        # import State
-        # import City
-        # import Amenity
-        # import Place
-        # import Review
-
+        
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
                 bind=self.__engine,

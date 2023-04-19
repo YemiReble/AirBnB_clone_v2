@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         cls = args.partition(' ')[0]
         args = args.partition(' ')[2].split()  # args is now a list
 
-        if not args:
+        if not cls:
             print("** class name missing **")
             return
 
@@ -158,9 +158,9 @@ class HBNBCommand(cmd.Cmd):
                             continue
                     new_instance.__dict__.update({key: value})
 
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -242,12 +242,10 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            for obj in storage.all(HBNBCommand.classes[args]).values():
+                print_list.append(str(obj))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            print_list = [str(obj) for obj in storage.all().values()]
 
         print(print_list)
 
