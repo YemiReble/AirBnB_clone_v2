@@ -58,12 +58,12 @@ class DBStorage:
 
     def reload(self):
         """Reloads all objects from database"""
-        # import User
-        # import State
-        # import City
-        # import Amenity
-        # import Place
-        # import Review
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
 
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
