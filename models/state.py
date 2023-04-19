@@ -16,7 +16,7 @@ class State(BaseModel, Base):
     if storage_type == 'db':
         cities = relationship(
                 'City',
-                cascade='all delete-orphan',
+                cascade='all, delete-orphan',
                 backref='state')
     else:
         @property
