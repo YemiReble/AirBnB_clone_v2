@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 import sqlalchemy
-from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 
@@ -20,11 +20,17 @@ class Place(BaseModel):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship(
                 'Review',
                 cascade='all, delete-orphan',
                 backref='place')
+        amenities = relationship(
+                'Amenity',
+                secondary=place_amenity,
+                back_populates='place_amenities',
+                viewonly=False
+                )
     else:
         @property
         def reviews(self):
@@ -33,4 +39,29 @@ class Place(BaseModel):
             return [review
                     for review in storage.all(Review)
                     if review.place_id == self.id]
-    amenity_ids = []
+
+        @property
+        def amenities(self):
+            """Getter attribute"""
+            from models.amenity import Amenity
+            self.amenity_ids = [
+                    amenity
+                    for amenity in storage.all(Amenity)
+                    if amenity.place_id == self.id]
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, obj):
+            """Setter attribute"""
+            if type(obj) is not Amenity:
+                return
+            self.amenity_ids.append(obj)
+
+
+place_amenity = Table(
+        'place_amenity',
+        Base.metadata,
+        Column('place_id', String(60), ForeignKey('places.id'),
+               nullable=False),
+        Column('amenity_id', String(60), ForeignKey('ameities.id'),
+               nullable=False))
