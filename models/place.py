@@ -28,7 +28,7 @@ class Place(BaseModel, Base):
         amenities = relationship(
                 'Amenity',
                 secondary=place_amenity,
-                back_populates='place_amenities',
+                backref='place_amenities',
                 viewonly=False
                 )
     else:
@@ -36,6 +36,7 @@ class Place(BaseModel, Base):
         def reviews(self):
             """Getter for all reviews with place_id attribut equal self.id"""
             from models.review import Review
+            from models import storage
             return [review
                     for review in storage.all(Review)
                     if review.place_id == self.id]
@@ -44,6 +45,7 @@ class Place(BaseModel, Base):
         def amenities(self):
             """Getter attribute"""
             from models.amenity import Amenity
+            from models import storage
             self.amenity_ids = [
                     amenity
                     for amenity in storage.all(Amenity)
@@ -52,6 +54,7 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj):
+            from models.amenity import Amenity
             """Setter attribute"""
             if type(obj) is not Amenity:
                 return
@@ -63,5 +66,5 @@ place_amenity = Table(
         Base.metadata,
         Column('place_id', String(60), ForeignKey('places.id'),
                nullable=False),
-        Column('amenity_id', String(60), ForeignKey('ameities.id'),
+        Column('amenity_id', String(60), ForeignKey('amenities.id'),
                nullable=False))
