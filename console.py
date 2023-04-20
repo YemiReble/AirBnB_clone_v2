@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
 
                     # skip if value contains space
                     value = value.replace('_', ' ')
-                    
+
                     # format params
                     if value.startswith('"') and value.endswith('"'):
                         # format as string
@@ -353,6 +353,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
