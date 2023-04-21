@@ -132,6 +132,8 @@ class HBNBCommand(cmd.Cmd):
                 if '=' in arg:
                     key, value = arg.split('=')
 
+                    # might be redundant but i'm leaving this
+                    # to test it out later
                     if ' ' in value:
                         continue
 
@@ -160,7 +162,6 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance.save()
         print(new_instance.id)
-        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -191,7 +192,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -247,7 +248,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             print_list = [str(obj) for obj in storage.all().values()]
 
-        print(print_list)
+        print('[', end='')
+        print(' '.join(print_list), end='')
+        print(']')
 
     def help_all(self):
         """ Help information for the all command """
