@@ -7,7 +7,7 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 
 if storage_type == 'db':
-    place_amenity = Table(
+    PlaceAmenity = Table(
             'place_amenity',
             Base.metadata,
             Column('place_id', String(60), ForeignKey('places.id'),
