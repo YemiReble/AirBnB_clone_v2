@@ -6,7 +6,7 @@ import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 if storage_type == 'db':
-    from models.place import place_amenity
+    from models.place import PlaceAmenity
 
 
 class Amenity(BaseModel, Base):
@@ -16,7 +16,7 @@ class Amenity(BaseModel, Base):
         name = Column(String(128), nullable=False)
         place_amenities = relationship(
                 'Place',
-                secondary=place_amenity,
+                secondary=PlaceAmenity,
                 back_populates='amenities')
     else:
         name = ''
