@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         cls = args.partition(' ')[0]
         args = args.partition(' ')[2].split()  # args is now a list
 
-        if not args:
+        if not cls:
             print("** class name missing **")
             return
 
