@@ -2,8 +2,9 @@
 """ Console Module """
 import cmd
 import sys
+import models
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -132,12 +133,14 @@ class HBNBCommand(cmd.Cmd):
                 if '=' in arg:
                     key, value = arg.split('=')
 
+                    # might be redundant but i'm leaving this
+                    # to test it out later
                     if ' ' in value:
                         continue
 
                     # skip if value contains space
                     value = value.replace('_', ' ')
-                    
+
                     # format params
                     if value.startswith('"') and value.endswith('"'):
                         # format as string
@@ -158,9 +161,8 @@ class HBNBCommand(cmd.Cmd):
                             continue
                     new_instance.__dict__.update({key: value})
 
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -191,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -242,14 +244,14 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            for obj in storage.all(HBNBCommand.classes[args]).values():
+                print_list.append(str(obj))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            print_list = [str(obj) for obj in storage.all().values()]
 
-        print(print_list)
+        print('[', end='')
+        print(' '.join(print_list), end='')
+        print(']')
 
     def help_all(self):
         """ Help information for the all command """
@@ -259,9 +261,10 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
-            if args == k.split('.')[0]:
-                count += 1
+        # for k, v in storage._FileStorage__objects.items():
+        #    if args == k.split('.')[0]:
+        #        count += 1
+        count = len(storage.all(HBNBCommand.classes[args]))
         print(count)
 
     def help_count(self):
@@ -355,6 +358,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
