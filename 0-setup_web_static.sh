@@ -2,9 +2,9 @@
 # This program will install Nginx and Put a static file in it.
 # This bash script will automate the creation of files.
 
-#sudo apt update
-#sudo apt-get install nginx -y
-#sudo ufw allow "Nginx HTTP"
+sudo apt update
+sudo apt-get install nginx -y
+sudo ufw allow "Nginx HTTP"
 
 # Creating All Required Folders and File
 sudo mkdir -p /data/web_static/releases
