@@ -10,7 +10,7 @@ sudo ufw allow "Nginx HTTP"
 sudo mkdir -p /data/web_static/releases
 sudo mkdir -p /data/web_static/shared
 sudo mkdir -p /data/web_static/releases/test
-sudo mkdir -p /data/web_static/current
+#sudo mkdir -p /data/web_static/current
 sudo touch /data/web_static/releases/test/index.html
 
 PATH_F=/data/web_static/releases/test/index.html
@@ -27,7 +27,6 @@ CONTENT="<html>
 echo "$CONTENT" | sudo tee "$PATH_F"
 
 # Creating A Symbolic Linking
-#cd /data/web_static/current
 sudo ln -sfn /data/web_static/releases/test/ /data/web_static/current
 
 # Granting Ownership
