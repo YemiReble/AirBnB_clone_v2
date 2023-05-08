@@ -13,8 +13,9 @@ env.user = 'ubuntu'
 
 
 def do_deploy(archive_path):
-    """
-    Depoying web static
+    """Depoying web static
+        :param archive_path: path to archive file
+
     """
     try:
         if not (path.exists(archive_path)):
