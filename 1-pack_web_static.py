@@ -17,9 +17,9 @@ def do_pack():
     filedate = strftime("%Y%m%d%H%M%S")
     try:
         local("mkdir -p version")
-        local("tar -czvf version/web_static_{}.tgz web_static".format(
+        local("tar -czvf versions/web_static_{}.tgz web_static".format(
             filedate))
-        return "version/web_static_{}.tgz".format(filedate)
+        return "versions/web_static_{}.tgz".format(filedate)
 
     except Exception as e:
         return None
