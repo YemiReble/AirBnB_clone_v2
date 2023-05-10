@@ -37,12 +37,12 @@ def do_deploy(archive_path):
         run('sudo rm /tmp/web_static_{}.tgz'.format(time))
 
         # Move files
-        # run('sudo mv /data/web_static/releases/web_static_{}/web_static/* \
-        #    /data/web_static/releases/web_static_{}/'.format(time, time))
+        run('sudo mv /data/web_static/releases/web_static_{}/web_static/* \
+            /data/web_static/releases/web_static_{}/'.format(time, time))
 
         # Remove duplicates
-        # run('sudo rm -rf /data/web_static/releases/web_static_{}/\
-        #   web_static'.format(time))
+        run('sudo rm -rf /data/web_static/releases/web_static_{}/\
+            web_static'.format(time))
 
         # Delete the symbolic link /data/web_static/current from the web server
         run('sudo rm -rf /data/web_static/current')
