@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """
-This python program deploys static web files
+This python program creates archive on local machine,
+deploy it to the target servers and unzip it with some
+other cool stuffs
 """
+
 
 from fabric.api import *
 from os import path
@@ -26,7 +29,7 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         # Creating destination dir
-        time = [-18:-4]
+        time = archive_path[-18:-4]
         run('sudo mkdir -p /data/web_static/releases/web_static_{}.tgz/'
             .format(time))
 
@@ -41,7 +44,7 @@ def do_deploy(archive_path):
         run('sudo mv /data/web_static/releases/web_static_{}/web_static/* \
             /data/web_static/releases/web_static_{}/'.format(time, time))
 
-        # Remove duplicates
+        # Remove an empty dir
         run('sudo rm -rf /data/web_static/releases/web_static_{}/\
             web_static'.format(time))
 
@@ -53,9 +56,9 @@ def do_deploy(archive_path):
         run('sudo ln -sfn /data/web_static/releases/web_static_{}.tgz/ \
             /data/web_static/current'.format(time))
 
-        except Exception as e:
+    except Exception as e:
             # If failed
-            return False
+        return False
 
         # On Success
-        return True
+    return True
