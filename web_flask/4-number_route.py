@@ -44,12 +44,14 @@ def python(text='is cool'):
 @app.route('/number/<int:n>')
 def number(n):
     """
-    Displays "<n> is a number" when the /number/<n> URL is accessed, but only if n is an integer.
+    Displays "<n> is a number" when the /number/<n> URL is accessed,
+            but only if n is an integer.
     Args:
         n (int): The number to display.
     Returns:
-        str: The complete string to display, or an error message if n is not an integer.
-    """ 
+        str: The complete string to display, or an error message
+        if n is not an integer.
+    """
     return "{} is a number".format(n)
 
 
