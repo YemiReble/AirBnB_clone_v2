@@ -44,6 +44,7 @@ def python(text='is cool'):
 @app.route('/number/<int:n>')
 def number(n):
     """This function return integer and interger only
+    :n param: being the varable that holds the integer
     """
     return '{} is a number'.format(n)
 
