@@ -32,12 +32,13 @@ def c(text):
     return "C " + text.replace("_", " ")
 
 
-@app.route('/python/(<text>)', defaults={"text": "is cool"})
-def python(text):
+@app.route('/python')
+@app.route('/python/<text>')
+def python(text='is cool'):
     """This fucntion returns a default text "Python is"
     with an argument passed to it
     """
-    return "Python " + text.replace("_", " ")
+    return "Python {}".format(text.replace("_", " "))
 
 
 if __name__ == "__main__":
