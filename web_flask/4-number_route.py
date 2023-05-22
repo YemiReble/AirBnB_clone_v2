@@ -43,6 +43,8 @@ def python(text='is cool'):
 
 @app.route('/number/<int:n>')
 def number(n):
+    """This function return integer and interger only
+    """
     return '{} is a number'.format(n)
 
 # if __name__ == '__main__':
