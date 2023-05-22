@@ -32,7 +32,7 @@ def c(text):
     return "C " + text.replace("_", " ")
 
 
-@app.route('/python/(<text>)', defaults={"text": "is cool"})
+@app.route('/python/(<text>)', default={"text": "is cool"})
 def python(text):
     """This fucntion returns a default text "Python is"
     with an argument passed to it
