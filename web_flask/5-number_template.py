@@ -64,7 +64,7 @@ def number_template(n):
     Returns:
         str: The complete HTML Page to display.
     """
-    return render_template('templates/5-number.html', n=n)
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == "__main__":
