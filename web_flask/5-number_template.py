@@ -56,7 +56,7 @@ def number(n):
 
 
 @app.route('/number_template/<int:n>')
-def number_template(n):
+def number_template(n=None):
     """
     Display An HTML page when the /number_template/<n> URL is accessed.
     Args:
@@ -64,7 +64,8 @@ def number_template(n):
     Returns:
         str: The complete HTML Page to display.
     """
-    return render_template('5-number.html', n=n)
+    if isinstance(n, int):
+        return render_template('5-number.html', n=n)
 
 
 if __name__ == "__main__":
