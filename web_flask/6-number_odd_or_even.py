@@ -55,34 +55,24 @@ def number(n):
     return "{} is a number".format(n)
 
 
-@app.route('/number_template/<int:n>')
-def number_template(n):
-    """
-    Display An HTML page when the /number_template/<n> URL is accessed.
-    Args:
-        n (int): The number that when call it displays and HTML page
-    Returns:
-        str: The complete HTML Page to display.
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def number_template(n=None):
+    """display a HTML page only if n is an integer"""
+    if isinstance(n, int):
+        return render_template("5-number.html", n=n)
+
+
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+def number_odd_or_even(n=None):
+    """display a HTML page only if n is an integer:
+    H1 tag: “Number: n is even|odd” inside the tag BODY
     """
     if isinstance(n, int):
-        return render_template('5-number.html', n=n)
-
-
-@app.route('/number_odd_or_even/<n>')
-def odd_or_even(n):
-    """
-    Display an HTML page when
-    Args:
-        n (int): The number to call
-    Returns:
-        str: The HTML Pageto display.
-    """
-    return render_template(
-        '6-number_odd_or_even.html',
-        n=n,
-        parity='even' if n %
-        2 == 0 else 'odd')
-
+        if n % 2:
+            eo = "odd"
+        else:
+            eo = "even"
+        return render_template("6-number_odd_or_even.html", n=n, eo=eo)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
