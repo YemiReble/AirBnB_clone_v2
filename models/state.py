@@ -3,19 +3,20 @@
 from models.base_model import BaseModel, Base
 from models import storage_type
 import sqlalchemy
+from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
 class State(BaseModel, Base):
     """ State class """
-    if storage_type == 'db':
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship(
-                'City',
-                cascade='all, delete-orphan',
-                backref='state')
+            'City',
+            cascade='all, delete-orphan',
+            backref='state')
     else:
         name = ''
 
