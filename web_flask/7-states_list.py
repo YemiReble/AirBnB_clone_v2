@@ -14,9 +14,12 @@ app.url_map.strict_slashes = False
 
 @app.route('/states_list')
 def state_list():
-    """When called, display all the lists of state in the database
-    states: All the states to fetch from the storage
-    Returns: the HTML templates that contains all the states
+    """
+    This method is a Flask route that renders a template to display
+    a list of all the states in the database.
+    Returns: A Flask template that displays a list of all the
+        states in the database.
+    Raises: None.
     """
     states = storage.all()
     return render_template('7-states_list.html', states=states)
@@ -25,7 +28,9 @@ def state_list():
 @app.teardown_appcontext
 def teardown():
     """
-    Method that ends SQLAlchemy session
+    This method is a Flask teardown function that ends the SQLAlchemy session
+    Returns: None.
+    Raises: None.
     """
     storage.close()
 
