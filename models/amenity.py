@@ -5,8 +5,7 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-if storage_type == 'db':
-    from models.place import PlaceAmenity
+from models.place import PlaceAmenity
 
 
 class Amenity(BaseModel, Base):
