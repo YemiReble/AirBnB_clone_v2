@@ -14,8 +14,9 @@ app.url_map.strict_slashes = False
 
 @app.route('/states_list')
 def state_list():
-    """
-    When called, display all the lists of state in the database
+    """When called, display all the lists of state in the database
+    states: All the states to fetch from the storage
+    Returns: the HTML templates that contains all the states
     """
     states = storage.all()
     return render_template('7-states_list.html', states=states)
