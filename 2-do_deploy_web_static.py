@@ -57,7 +57,7 @@ def do_deploy(archive_path):
             /data/web_static/current'.format(time))
 
     except Exception as e:
-            # If failed
+        # If failed
         return False
 
         # On Success

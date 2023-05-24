@@ -17,7 +17,8 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
 
 
 class FileStorage:
-    """serializes instances to a JSON file and deserializes back to instances"""
+    """serializes instances to a JSON file and deserializes
+        back to instances"""
 
     __file_path = "file.json"
     __objects = {}
@@ -43,7 +44,7 @@ class FileStorage:
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
         for key in self.__objects:
-            json_objects[key] = self.__objects[key].to_dict(save_to_disk=True)
+            json_objects[key] = self.__objects[key].to_dict()
         with open(self.__file_path, 'w') as f:
             json.dump(json_objects, f)
 
@@ -51,9 +52,9 @@ class FileStorage:
         """deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r') as f:
-                jo = json.load(f)
-            for key in jo:
-                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
+                m = json.load(f)
+            for key in m:
+                self.__objects[key] = classes[m[key]["__class__"]](**m[key])
         except BaseException:
             pass
 

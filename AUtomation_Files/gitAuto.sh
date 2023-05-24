@@ -16,15 +16,22 @@
 # arg2 = "$2"
 # Copyright of YemiDev
 # Version -v1 ((Old): No else statement, commands are above)
-# Version -v2
+# Version -v2.5
 # ============================================================
 
 
-if [ -z "$1" ] || [ -z "$2" ]
+if [ -z "$1" ] # || [ -z "$2" ]
 then
-	echo "You did not commit or add a file"
+	echo "Please add a file you want to commit"
 	echo "Kindly use the instruction below"
 	echo "Useage: ./gitAuto.sh <file_name> <your_commit_message>"
+
+elif [ -z "$2" ]
+then
+    git add "$1"
+    git commit -m "Version Update"
+    git push
+
 else
     git add "$1"
     git commit -m "$2"
