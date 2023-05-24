@@ -19,13 +19,13 @@ class BaseModel:
     if storage_type == 'db':
         id = Column(String(60), unique=True, nullable=False, primary_key=True)
         created_at = Column(
-                DateTime(),
-                nullable=False,
-                default=datetime.utcnow())
+            DateTime(),
+            nullable=False,
+            default=datetime.utcnow())
         updated_at = Column(
-                DateTime(),
-                nullable=False,
-                default=datetime.utcnow())
+            DateTime(),
+            nullable=False,
+            default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
@@ -37,9 +37,9 @@ class BaseModel:
         else:
             try:
                 kwargs['updated_at'] = datetime.strptime(
-                        kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                    kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['created_at'] = datetime.strptime(
-                        kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                    kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
                 del kwargs['_sa_instance_state']
             except KeyError:
                 self.id = str(uuid.uuid4())

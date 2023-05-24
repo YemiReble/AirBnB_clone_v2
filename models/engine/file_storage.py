@@ -26,7 +26,7 @@ class FileStorage:
         """returns the dictionary __objects"""
         if not cls:
             return self.__objects
-        elif type(cls) == str:
+        elif isinstance(cls, str):
             return {k: v for k, v in self.__objects.items()
                     if v.__class__.__name__ == cls}
         else:
@@ -54,7 +54,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except BaseException:
             pass
 
     def delete(self, obj=None):
