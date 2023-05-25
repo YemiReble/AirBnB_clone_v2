@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Flask web application that render all states
-"""
+"""Flask web application that render all states"""
 
 from flask import Flask, render_template
 from models.state import State
