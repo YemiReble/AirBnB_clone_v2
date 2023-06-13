@@ -1,59 +1,41 @@
 #!/usr/bin/python3
 """
-This is my first Flask program using python
+starts a Flask web application
 """
 
-
 from flask import Flask
-
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
-def hello():
-    """Function that return Hello HBNB when user
-        make a request to our ip address.
-    """
-    return "Hello HBNB!"
+@app.route('/', strict_slashes=False)
+def index():
+    """returns Hello HBNB!"""
+    return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """The function display "HBNB"
-    """
-    return "HBNB"
+    """returns HBNB"""
+    return 'HBNB'
 
 
-@app.route('/c/<text>')
-def c(text):
-    """This c function returns multiple
-    stuff on the screen"""
-    return "C " + text.replace("_", " ")
+@app.route('/c/<text>', strict_slashes=False)
+def cisfun(text):
+    """display “C ” followed by the value of the text variable"""
+    return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/python')
-@app.route('/python/<text>')
-def python(text='is cool'):
-    """This fucntion returns a default text "Python is"
-    with an argument passed to it
-    """
-    return "Python {}".format(text.replace("_", " "))
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def pythoniscool(text='is cool'):
+    """display “Python ”, followed by the value of the text variable"""
+    return 'Python ' + text.replace('_', ' ')
 
 
-@app.route('/number/<int:n>')
-def number(n):
-    """
-    Displays "<n> is a number" when the /number/<n> URL is accessed,
-            but only if n is an integer.
-    Args:
-        n (int): The number to display.
-    Returns:
-        str: The complete string to display, or an error message
-        if n is not an integer.
-    """
-    return "{} is a number".format(n)
+@app.route('/number/<int:n>', strict_slashes=False)
+def imanumber(n):
+    """display “n is a number” only if n is an integer"""
+    return "{:d} is a number".format(n)
 
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000')
